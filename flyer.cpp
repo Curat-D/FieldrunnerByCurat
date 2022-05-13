@@ -3,7 +3,7 @@
 #include "enemieGlobal.h"
 #include "global.h"
 
-Flyer::Flyer():Enemie(FlyerHp, FlyerAtk, FlyerSpeed, FlyerHeight, FlyerWidth){
+Flyer::Flyer():Enemie(FlyerHp, FlyerAtkToTower, FlyerAtkToHeart, FlyerSpeed, FlyerInterval,FlyerRadius,FlyerHeight, FlyerWidth){
     setMoive(FlyerMoive);
 }
 
@@ -22,3 +22,4 @@ void Flyer::advance(int phase){
     setPos(new_pos);
     return;
 }
+

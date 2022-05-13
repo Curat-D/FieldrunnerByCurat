@@ -1,9 +1,10 @@
+#include "tower.h"
 #include "map.h"
 #include "runner.h"
 #include "enemieGlobal.h"
 #include "global.h"
 #include <QDebug>
-Runner::Runner():Enemie(RunnerHp, RunnerAtk, RunnerSpeed, RunnerHeight, RunnerWidth){
+Runner::Runner():Enemie(RunnerHp, RunnerAtkToTower, RunnerAtkToHeart,RunnerSpeed, RunnerRadius, RunnerInterval, RunnerHeight, RunnerWidth){
     setMoive(RunnerRight);
 }
 
@@ -12,33 +13,54 @@ void Runner::advance(int phase){
         return;
     update();
 
+    count++;
     if(hp<=0){
         delete this;
         return;
     }
+    if(count==interval){
+        QList<QGraphicsItem *> items = collidingItems();
+        if(!items.isEmpty()){
+            Tower* tower = qgraphicsitem_cast<Tower*>(items[0]);
+            tower->BeAttacked(atkToTower);
+        }
+        count=0;
+    }
 
+  //  qDebug()<<actualSpeed;
     QPoint pos(x(),y());
-    QPoint new_pos = Map::advanceGroundPath(state,pos,speed);
+    QPoint new_pos = Map::advanceGroundPath(state,pos,actualSpeed);
  //   qDebug()<<"原来："<<pos;
  //   qDebug()<<"现在："<<new_pos;
  //   qDebug()<<"";
 
+/*    qDebug()<<preState;
+    qDebug()<<x()<<" "<<y()<<" "<<new_pos.x()<<" "<<new_pos.y();
+    qDebug()<<"";*/
     setPos(new_pos);
-    if(new_pos.x()>pos.x()&&preState!=enemie_right){
-        setMoive(RunnerRight);
-        preState=enemie_right;
+    if(new_pos.x()>pos.x()){
+        if(preState!=enemie_right){
+            setMoive(RunnerRight);
+            preState=enemie_right;
+        }
     }
-    else if(new_pos.x()<pos.x()&&preState!=enemie_left){
-        setMoive(RunnerLeft);
-        preState=enemie_left;
+    else if(new_pos.x()<pos.x()){
+        if(preState!=enemie_left){
+            setMoive(RunnerLeft);
+            preState=enemie_left;
+        }
     }
-    else if(new_pos.y()>pos.y()&&preState!=enemie_down){
-        setMoive(RunnerDown);
-        preState=enemie_down;
+    else if(new_pos.y()>pos.y()){
+        if(preState!=enemie_down){
+            setMoive(RunnerDown);
+            preState=enemie_down;
+        }
     }
-    else if(new_pos.y()<pos.y()&&preState!=enemie_up){
-        setMoive(RunnerUp);
-        preState=enemie_up;
+    else if(new_pos.y()<pos.y()){
+        if(preState!=enemie_up){
+            setMoive(RunnerUp);
+            preState=enemie_up;
+        }
     }
     return;
 

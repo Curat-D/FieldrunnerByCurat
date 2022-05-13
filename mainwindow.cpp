@@ -6,9 +6,11 @@
 #include "global.h"
 #include "runner.h"
 #include "flyer.h"
+#include "stubbornrunner.h"
 #include "gattling.h"
 #include "towerpos.h"
 #include "mousehouse.h"
+#include "bullet.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -17,7 +19,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     qsrand(uint(QTime(0,0,0).secsTo(QTime::currentTime())));
-    enemie_timer = new QTimer;
+    enemie_timer1 = new QTimer;
+    enemie_timer2 = new QTimer;
+    enemie_timer3 = new QTimer;
     game_timer = new QTimer;
 
     setFixedSize(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -56,9 +60,14 @@ MainWindow::MainWindow(QWidget *parent)
     gameOver = new QSound(":/musics/game_over.wav");
     connect(game_timer, &QTimer::timeout, scene, &QGraphicsScene::advance);
     connect(game_timer, &QTimer::timeout, this, &MainWindow::checkGameOver);
-    connect(enemie_timer, &QTimer::timeout, this, &MainWindow::addEnemie);
+    connect(enemie_timer1, &QTimer::timeout, this, &MainWindow::addEnemie1);
+    connect(enemie_timer2, &QTimer::timeout, this, &MainWindow::addEnemie2);
+    connect(enemie_timer3, &QTimer::timeout, this, &MainWindow::addEnemie3);
+
     game_timer->start(100);
-    enemie_timer->start(3000);
+    enemie_timer1->start(2000);
+    enemie_timer2->start(3000);
+    enemie_timer3->start(4000);
 }
 
 MainWindow::~MainWindow()
@@ -66,13 +75,22 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::addEnemie(){
+void MainWindow::addEnemie1(){
     Runner* new_runner=new Runner();
     new_runner->setPos(BEGIN_X,BEGIN_Y);
     scene->addItem(new_runner);
+}
+
+void MainWindow::addEnemie2(){
     Flyer* new_flyer=new Flyer();
     new_flyer->setPos(BEGIN_X,BEGIN_Y);
     scene->addItem(new_flyer);
+}
+
+void MainWindow::addEnemie3(){
+    StubbornRunner* new_StubbornRunner=new StubbornRunner();
+    new_StubbornRunner->setPos(BEGIN_X+100,BEGIN_Y);
+    scene->addItem(new_StubbornRunner);
 }
 
 void MainWindow::checkGameOver(){
@@ -93,8 +111,19 @@ void MainWindow::checkGameOver(){
         scene->addPixmap(QPixmap(":/images/you_lose.jpg").scaled(400,400))->setPos(400, 150);
         scene->advance();
         game_timer->stop();
-        enemie_timer->stop();
+        enemie_timer1->stop();
+        enemie_timer2->stop();
+        enemie_timer3->stop();
         music->stop();
         gameOver->play();
     }
+}
+
+void MainWindow::advanceBulllet(){
+    const QList<QGraphicsItem*> items = scene->items();
+    foreach(QGraphicsItem * item, items)
+        if(item->type()==Bullet::Type){
+            item->advance(0);
+            item->advance(1);
+        }
 }

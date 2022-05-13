@@ -8,8 +8,8 @@
 class Tower : public QGraphicsItem
 {
 public:
-    Tower(int ATK=0, int FIRE_RATE=0, int RADIUS=0, int HP=0);
-    ~Tower();
+    Tower(int ATK=0, int INTERVAL=0, int RADIUS=0, int HP=0);
+    virtual ~Tower();
 
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
@@ -20,7 +20,8 @@ public:
     void BeAttacked(int damage);
 protected:
     int atk;  //攻击力
-    int fire_rate;  //攻速
+    int interval;  //攻击间隔
+    int count;    //攻击间隔计数
     int radius;     //攻击半径
     int hp;         //生命值
     int direction;   //方向，从1到19

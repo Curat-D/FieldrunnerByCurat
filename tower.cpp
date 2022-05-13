@@ -1,12 +1,14 @@
-#include "tower.h"
-#include "enemie.h"
-#include "towerGolbal.h"
 #include <QDebug>
 #include <QPainter>
 #include <QPen>
-Tower::Tower(int ATK, int FIRE_RATE, int RADIUS, int HP){
+#include "tower.h"
+#include "enemie.h"
+#include "towerpos.h"
+#include "towerGolbal.h"
+Tower::Tower(int ATK, int INTERVAL, int RADIUS, int HP){
     atk=ATK;
-    fire_rate=FIRE_RATE;
+    interval=INTERVAL;
+    count=0;
     radius=RADIUS;
     hp=HP;
     direction=1;
@@ -16,6 +18,13 @@ Tower::Tower(int ATK, int FIRE_RATE, int RADIUS, int HP){
 Tower::~Tower(){
     delete movie;
     movie=NULL;
+    QList<QGraphicsItem *> items = scene()->items(QPoint(x(),y()));
+    for(auto item:items){
+        if(item->type()==TowerPos::Type){
+            TowerPos* towerPos=qgraphicsitem_cast<TowerPos*>(item);
+            towerPos->removeTower();
+        }
+    }
 }
 
 QRectF Tower::boundingRect() const {

@@ -4,6 +4,7 @@
 #include <QDebug>
 #include "gattling.h"
 #include "glue.h"
+#include "barrier.h"
 #include "towerpos.h"
 #include "global.h"
 TowerPos::TowerPos(bool jdg):hasTower(false),isMelee(jdg){
@@ -33,6 +34,16 @@ void TowerPos::dragEnterEvent(QGraphicsSceneDragDropEvent *event){
 void TowerPos::dropEvent(QGraphicsSceneDragDropEvent *event){
     if (!hasTower&&event->mimeData()->hasText()) {
         QString s = event->mimeData()->text();
+
+        //近战格子放近战
+        if(isMelee){
+            if(s!="barrier")
+                return;
+        }
+        else{
+            if(s!="gattling1"&&s!="glue1")
+                return;
+        }
         QPointF pos(x(),y());
        // qDebug()<<pos;
         if(s=="gattling1"){
@@ -45,6 +56,19 @@ void TowerPos::dropEvent(QGraphicsSceneDragDropEvent *event){
             g->setPos(pos);
             scene()->addItem(g);
         }
+        else if(s=="barrier"){
+            Barrier* g=new Barrier();
+            g->setPos(pos);
+            scene()->addItem(g);
+        }
         hasTower=true;
     }
+}
+
+int TowerPos::type()const{
+    return Type;
+}
+
+void TowerPos::removeTower(){
+    hasTower=false;
 }

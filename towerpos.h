@@ -10,10 +10,13 @@ public:
     TowerPos(bool jdg);
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
-
+    enum{Type = UserType+4};
+    int type() const override;
 
     void dragEnterEvent(QGraphicsSceneDragDropEvent *event) override;
     void dropEvent(QGraphicsSceneDragDropEvent *event) override;
+
+    void removeTower();
 
 private:
     bool hasTower;

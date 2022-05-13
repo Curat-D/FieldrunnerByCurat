@@ -19,14 +19,19 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    void addEnemie();
+    void addEnemie1();
+    void addEnemie2();
+    void addEnemie3();
     void checkGameOver();
+    void advanceBulllet();
 private:
     QGraphicsScene* scene;
     QGraphicsView* view;
     Map* map;
     QTimer* game_timer;
-    QTimer* enemie_timer;
+    QTimer* enemie_timer1;
+    QTimer* enemie_timer2;
+    QTimer* enemie_timer3;
     int heart;
     QSound* music;
     QSound* gameOver;

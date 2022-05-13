@@ -1,7 +1,7 @@
 #include "card.h"
 #include "global.h"
 
-const QVector<QString> Card::name = {"gattling1","glue1","car"};
+const QVector<QString> Card::name = {"gattling1","glue1","barrier"};
 Card::Card(int idx):index(idx){}
 QRectF Card::boundingRect() const{
     return QRectF(0, 0, CARD_WIDTH+2, CARD_HEIGHT+2);

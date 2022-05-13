@@ -6,24 +6,26 @@
 
 #define RANGE ":/images/range.png"
 
-#define GATTLING_ATK 5
-#define GATTLING_RATE 3
-#define GATLING_RADIUS 150
+#define GATTLING_ATK 20
+#define GATTLING_INTERVAL 2
+#define GATTLING_RADIUS 150
+#define GATTLING_HP 100
 #define GATTLING1 ":/images/Towers/gattling/Gattling1/"
 #define GATTLING2 ":/images/Towers/gattling/Gattling2/"
 #define GATTLING3 ":/images/Towers/gattling/Gattling3/"
 
-#define GLUE_ATK 10
-#define GLUE_RATE 1
+#define GLUE_ATK 40
+#define GLUE_INTERVAL 10
 #define GLUE_RADIUS 150
+#define GLUE_HP 100
 #define GLUE1 ":/images/Towers/goo/glue1/"
 #define GLUE2 ":/images/Towers/goo/glue2/"
 #define GLUE3 ":/images/Towers/goo/glue3/"
 
-#define CAR_ATK 10
-#define CAR_RATE 1
-#define CAR_RADIUS 20
-#define CAR_HP 100
-#define CAR ":/images/Towers/car/car.png"
+#define BARRIER_ATK 0
+#define BARRIER_INTERVAL 5
+#define BARRIER_RADIUS 20
+#define BARRIER_HP 100
+#define BARRIER ":/images/Towers/barrier.png"
 
 #endif // TOWERGOLBAL_H

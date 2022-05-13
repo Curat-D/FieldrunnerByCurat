@@ -2,10 +2,11 @@
 #define CAR_H
 #include "tower.h"
 
-class Car : public Tower
+class Barrier : public Tower
 {
 public:
-    Car();
+    Barrier();
+    ~Barrier();
     void advance(int phase) override;
 };
 

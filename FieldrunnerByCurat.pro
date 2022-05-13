@@ -16,7 +16,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    car.cpp \
+    barrier.cpp \
+    bullet.cpp \
     card.cpp \
     enemie.cpp \
     flyer.cpp \
@@ -27,11 +28,13 @@ SOURCES += \
     map.cpp \
     mousehouse.cpp \
     runner.cpp \
+    stubbornrunner.cpp \
     tower.cpp \
     towerpos.cpp
 
 HEADERS += \
-    car.h \
+    barrier.h \
+    bullet.h \
     card.h \
     enemie.h \
     enemieGlobal.h \
@@ -43,6 +46,7 @@ HEADERS += \
     map.h \
     mousehouse.h \
     runner.h \
+    stubbornrunner.h \
     tower.h \
     towerGolbal.h \
     towerpos.h

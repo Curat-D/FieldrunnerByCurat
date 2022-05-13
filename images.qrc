@@ -483,7 +483,14 @@
         <file>images/money.png</file>
         <file>images/Enemies/fly.png</file>
         <file>images/base1.png</file>
-        <file>images/Towers/car/car.jpg</file>
-        <file>images/Towers/car/car.png</file>
+        <file>images/Towers/barrier.png</file>
+        <file>images/arrow/g2.png</file>
+        <file>images/arrow/l2.png</file>
+        <file>images/arrow/m2.png</file>
+        <file>images/arrow/t2.png</file>
+        <file>images/Enemies/Stubborn_Runner/down.gif</file>
+        <file>images/Enemies/Stubborn_Runner/left.gif</file>
+        <file>images/Enemies/Stubborn_Runner/right.gif</file>
+        <file>images/Enemies/Stubborn_Runner/up.gif</file>
     </qresource>
 </RCC>
