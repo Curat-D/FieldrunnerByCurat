@@ -1,12 +1,25 @@
 #include <math.h>
+#include "configreader.h"
 #include "map.h"
 #include "global.h"
 QVector<QPoint*> Map::groundPathList=QVector<QPoint*>();
 QVector<QPoint*> Map::aerialPathList=QVector<QPoint*>();
 
-Map::Map(){
-    loadPos();
-    loadPath();
+Map::Map(MouseHouse* HOUSE):house(HOUSE){
+    QPoint* pos1=NULL,*pos2=NULL,*groundPath=NULL,*aerialPath=NULL;
+    int len1=0,len2=0,len3,len4;
+    ConfigReader::readConfig(pos1,len1,pos2,len2,groundPath,len3,aerialPath,len4,beginX,beginY,endX);
+    loadPos(pos1,len1,pos2,len2);
+    loadPath(groundPath,len3,aerialPath,len4);
+}
+
+Map::~Map(){
+    qDeleteAll(positionList);
+    if(house!=NULL){
+        delete house;
+        house=NULL;
+    }
+
 }
 
 QRectF Map::boundingRect() const{
@@ -20,78 +33,25 @@ void Map::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidg
 }
 
 
-void Map::loadPos(){
-    QPoint pos1[] ={
-        QPoint(270, 270),
-        QPoint(270, 180),
-        QPoint(360, 460),
-        QPoint(600, 180),
-
-        QPoint(930, 270),
-        QPoint(930, 180),
-        QPoint(840, 450),
-        QPoint(930, 510),
-
-    };//远程
-    int len	= sizeof(pos1) / sizeof(pos1[0]);
-
-    for (int i = 0; i < len; ++i){
-        TowerPos* newPos=new TowerPos(false);
+void Map::loadPos(QPoint* pos1, int len1, QPoint* pos2, int len2){
+    for (int i = 0; i < len1; ++i){
+        TowerPos* newPos=new TowerPos(false,house);
         newPos->setPos(pos1[i]);
         positionList.push_back(newPos);
     }
-    QPoint pos2[] ={
-        QPoint(100, 410),
-        QPoint(200, 410),
-        QPoint(400, 250),
-        QPoint(490, 450),
-        QPoint(600, 350),
-        QPoint(710, 450),
-
-    };//远程
-    len	= sizeof(pos2) / sizeof(pos2[0]);
-
-    for (int i = 0; i < len; ++i){
-        TowerPos* newPos=new TowerPos(true);
+    for (int i = 0; i < len2; ++i){
+        TowerPos* newPos=new TowerPos(true,house);
         newPos->setPos(pos2[i]);
         positionList.push_back(newPos);
     }
 }
 
-void Map::loadPath(){
-    QPoint groundPath[]{
-        QPoint(0, 410),
-        QPoint(230, 410),
-        QPoint(330, 350),
-        QPoint(330, 250),
-        QPoint(540, 250),
-        QPoint(540, 450),
-        QPoint(440, 450),
-        QPoint(440, 350),
-
-        QPoint(760, 350),
-        QPoint(760, 450),
-        QPoint(660, 450),
-        QPoint(660, 250),
-        QPoint(870, 250),
-        QPoint(870, 350),
-        QPoint(970, 410),
-        QPoint(1020, 410),
-    };
-    int len	= sizeof(groundPath) / sizeof(groundPath[0]);
-
-    for (int i = 0; i < len; ++i){
+void Map::loadPath(QPoint* groundPath, int len1, QPoint* aerialPath, int len2){
+    for (int i = 0; i < len1; ++i){
         QPoint* new_point=new QPoint(groundPath[i]);
         groundPathList.push_back(new_point);
     }
-
-    QPoint aerialPath[]{
-        QPoint(0, 410),
-        QPoint(1020, 410),
-    };
-    len	= sizeof(aerialPath) / sizeof(aerialPath[0]);
-
-    for (int i = 0; i < len; ++i){
+    for (int i = 0; i < len2; ++i){
         QPoint* new_point=new QPoint(aerialPath[i]);
         aerialPathList.push_back(new_point);
     }

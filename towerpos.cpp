@@ -1,14 +1,18 @@
 #include <QGraphicsSceneDragDropEvent>
 #include <QtWidgets>
-
 #include <QDebug>
-#include "gattling.h"
-#include "glue.h"
-#include "barrier.h"
+
 #include "towerpos.h"
 #include "global.h"
-TowerPos::TowerPos(bool jdg):hasTower(false),isMelee(jdg){
+TowerPos::TowerPos(bool jdg,MouseHouse* HOUSE):hasTower(false),isMelee(jdg),house(HOUSE){
     setAcceptDrops(true);
+}
+
+TowerPos::~TowerPos(){
+    if(house!=NULL){
+        delete house;
+        house=NULL;
+    }
 }
 
 QRectF TowerPos::boundingRect() const{
@@ -44,23 +48,8 @@ void TowerPos::dropEvent(QGraphicsSceneDragDropEvent *event){
             if(s!="gattling1"&&s!="glue1")
                 return;
         }
-        QPointF pos(x(),y());
-       // qDebug()<<pos;
-        if(s=="gattling1"){
-            Gattling* g=new Gattling();
-            g->setPos(pos);
-            scene()->addItem(g);
-        }
-        else if(s=="glue1"){
-            Glue* g=new Glue();
-            g->setPos(pos);
-            scene()->addItem(g);
-        }
-        else if(s=="barrier"){
-            Barrier* g=new Barrier();
-            g->setPos(pos);
-            scene()->addItem(g);
-        }
+        QPoint pos(x(),y());
+        house->addTower(s,pos);
         hasTower=true;
     }
 }

@@ -2,12 +2,12 @@
 #define TOWERPOS_H
 #include <QGraphicsScene>
 #include <QGraphicsItem>
-#include <QPoint>
-#include <QPixmap>
-#include <QPainter>
+
+#include "mousehouse.h"
 class TowerPos : public QGraphicsItem{
 public:
-    TowerPos(bool jdg);
+    TowerPos(bool jdg,MouseHouse* HOUSE);
+    ~TowerPos();
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
     enum{Type = UserType+4};
@@ -21,6 +21,7 @@ public:
 private:
     bool hasTower;
     const bool isMelee;  //1:近战格子， 0：远程格子
+    MouseHouse* house;
 };
 
 #endif // TOWERPOS_H

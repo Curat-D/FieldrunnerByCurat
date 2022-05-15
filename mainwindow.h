@@ -8,9 +8,6 @@
 #include <QSound>
 #include "map.h"
 
-QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
-QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow
 {
@@ -23,7 +20,7 @@ public:
     void addEnemie2();
     void addEnemie3();
     void checkGameOver();
-    void advanceBulllet();
+    static void addScore(int increase);
 private:
     QGraphicsScene* scene;
     QGraphicsView* view;
@@ -33,8 +30,11 @@ private:
     QTimer* enemie_timer2;
     QTimer* enemie_timer3;
     int heart;
+    static int score;
+    QGraphicsTextItem* Heart;
+    QGraphicsTextItem* Score;
+    QGraphicsTextItem* Money;
     QSound* music;
     QSound* gameOver;
-    Ui::MainWindow *ui;
 };
 #endif // MAINWINDOW_H

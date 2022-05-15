@@ -8,6 +8,7 @@ public:
     Barrier();
     ~Barrier();
     void advance(int phase) override;
+    void UpGrade() override{};
 };
 
 #endif // CAR_H

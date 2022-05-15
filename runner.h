@@ -8,6 +8,7 @@ class Runner : public Enemie
 {
 public:
     Runner();
+    ~Runner(){}
     void advance(int phase) override;
 };
 

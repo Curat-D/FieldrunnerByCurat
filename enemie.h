@@ -8,8 +8,7 @@
 
 enum EnemieState{enemie_left,enemie_right,enemie_up,enemie_down};
 //abstract class of Enemie
-class Enemie : public QGraphicsItem
-{
+class Enemie : public QGraphicsItem{
 public:
     Enemie(int HP=0,int ATK1=0, int ATK2=0, int SPEED=0, int radius=0, int INTERVAL=0,int Height=0, int Weight=0);
     virtual ~Enemie();
@@ -28,6 +27,7 @@ public:
     void changeActualSpeed(int speed);
 protected:
     int hp;
+    int totalHp;  //总血量（用于计算百分比显示血条）
     int atkToTower;
     int atkToHeart;
     int speed;

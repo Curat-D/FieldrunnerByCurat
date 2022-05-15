@@ -8,7 +8,9 @@ class Glue : public Tower
 {
 public:
     Glue();
+    ~Glue();
     void advance(int phase) override;
+    void UpGrade() override;
 private:
     QSound* music;
 };

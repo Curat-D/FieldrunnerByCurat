@@ -1,11 +1,16 @@
+#include <QDebug>
+#include <QSound>
+
 #include "enemie.h"
 #include "tower.h"
 #include "towerpos.h"
+#include "mousehouse.h"
+#include "mainwindow.h"
 #include "enemieGlobal.h"
 #include "global.h"
-#include <QDebug>
 Enemie::Enemie(int HP,int ATK1, int ATK2, int SPEED, int Radius, int INTERVAL,int Height, int Weight){
     hp=HP;
+    totalHp=HP;
     atkToTower=ATK1;
     atkToHeart=ATK2;
     speed=SPEED;
@@ -23,7 +28,8 @@ Enemie::Enemie(int HP,int ATK1, int ATK2, int SPEED, int Radius, int INTERVAL,in
 Enemie::~Enemie(){
     if(movie)
         delete movie;
-
+    MouseHouse::addCoin(50);
+    MainWindow::addScore(100);
 }
 
 QRectF Enemie::boundingRect() const{
@@ -35,8 +41,12 @@ void Enemie::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QW
     Q_UNUSED(widget)
 
     QImage image = movie->currentImage();
- //   qDebug()<<"敌人："<<x()<<" "<<y();
     painter->drawImage(QRectF(-W/2,-H/2,W,H), image);
+    QBrush red_brush(Qt::red);//把刷子设置为红色
+    painter->setBrush(red_brush);//应用刷子
+    qreal rate = (qreal)hp/(qreal)totalHp;
+    painter->drawRect(-HpWidth/2,-H/2-2*HpHeight,rate*HpWidth,HpHeight);//绘制矩形
+
 }
 
 bool Enemie::collidesWithItem(const QGraphicsItem *other, Qt::ItemSelectionMode mode) const{
@@ -48,7 +58,6 @@ bool Enemie::collidesWithItem(const QGraphicsItem *other, Qt::ItemSelectionMode 
 int Enemie::type() const{
     return Type;
 }
-
 
 void Enemie::BeAttacked(int damage){
     hp-=damage;

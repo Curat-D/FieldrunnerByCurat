@@ -15,7 +15,6 @@ void StubbornRunner::advance(int phase){
     if (!phase)
         return;
     update();
-
     count++;
     if(hp<=0){
         delete this;

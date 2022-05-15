@@ -1,6 +1,10 @@
 #ifndef ENEMIEGLOBAL_H
 #define ENEMIEGLOBAL_H
 
+
+#define HpWidth 60
+#define HpHeight 10
+
 #define RunnerWidth 60
 #define RunnerHeight 75
 #define RunnerSpeed 10
@@ -20,7 +24,7 @@
 #define StubbornRunnerHp 100
 #define StubbornRunnerAtkToTower 10
 #define StubbornRunnerAtkToHeart 10
-#define StubbornRunnerRadius 120
+#define StubbornRunnerRadius 200
 #define StubbornRunnerInterval 5
 #define StubbornRunnerUp ":/images/Enemies/Stubborn_Runner/up.gif"
 #define StubbornRunnerRight ":/images/Enemies/Stubborn_Runner/right.gif"

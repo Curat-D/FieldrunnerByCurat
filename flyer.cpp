@@ -11,7 +11,6 @@ void Flyer::advance(int phase){
     if (!phase)
         return;
     update();
-
     if(hp<=0){
         delete this;
         return;

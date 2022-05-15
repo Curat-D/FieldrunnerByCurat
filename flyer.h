@@ -8,6 +8,7 @@ class Flyer: public Enemie
 {
 public:
     Flyer();
+    ~Flyer(){}
     void advance(int phase) override;
 };
 

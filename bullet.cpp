@@ -13,6 +13,8 @@ Bullet::Bullet(int attack, qreal speedOfX, qreal speedOfY, QString PATH, bool at
     atkObject = atkOBJECT;
 }
 
+Bullet::~Bullet(){}
+
 QRectF Bullet::boundingRect() const{
     return QRectF(-12, -28, 24, 24);
 }
@@ -37,6 +39,7 @@ bool Bullet::collidesWithItem(const QGraphicsItem *other, Qt::ItemSelectionMode 
 int Bullet::type() const{
     return Type;
 }
+
 void Bullet::advance(int phase){
     if (!phase)
         return;
@@ -70,6 +73,9 @@ void Bullet::advance(int phase){
         update();
     }
 
-    if (x() <=10 || x()>=1100 || y()<=10 || y()>=750)
+    if (x() <=10 || x()>=1100 || y()<=10 || y()>=750){
         delete this;
+        return;
+    }
+
 }

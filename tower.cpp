@@ -11,8 +11,18 @@ Tower::Tower(int ATK, int INTERVAL, int RADIUS, int HP){
     count=0;
     radius=RADIUS;
     hp=HP;
+    totalHp=HP;
     direction=1;
     movie=NULL;
+    ifClicked=0;
+    upgrade= new Upgrade;
+    upgrade->setParentItem(this);
+    upgrade->setPos(-20,-125);
+    upgrade->hide();
+    eliminate=new Eliminate;
+    eliminate->setParentItem(this);
+    eliminate->setPos(-20,50);
+    eliminate->hide();
 }
 
 Tower::~Tower(){
@@ -22,9 +32,11 @@ Tower::~Tower(){
     for(auto item:items){
         if(item->type()==TowerPos::Type){
             TowerPos* towerPos=qgraphicsitem_cast<TowerPos*>(item);
-            towerPos->removeTower();
+            if(towerPos!=NULL)
+                towerPos->removeTower();
         }
     }
+    return;
 }
 
 QRectF Tower::boundingRect() const {
@@ -37,11 +49,25 @@ void Tower::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
     Q_UNUSED(widget)
 
     painter->setCompositionMode(QPainter::CompositionMode_SourceOver);
-    painter->drawImage(QRectF(-radius,-radius, 2*radius, 2*radius), QImage(RANGE));
+    if(ifClicked){
+        painter->drawImage(QRectF(-radius,-radius, 2*radius, 2*radius), QImage(RANGE));
+        upgrade->show();
+        eliminate->show();
+    }
+    else{
+        upgrade->hide();
+        eliminate->hide();
+    }
+
+
   //  painter->drawEllipse(QRectF(-radius/2,-radius/2,radius, radius));
    // painter->drawRect(QRectF(-TOWER_WIDTH/2,-TOWER_HEIGHT/2,TOWER_WIDTH+2,TOWER_HEIGHT+2));
     QImage image = movie->currentImage();
     painter->drawImage(QRectF(-TOWER_WIDTH/2, -TOWER_HEIGHT/2, TOWER_WIDTH, TOWER_HEIGHT), image);
+    qreal rate = (qreal)hp/(qreal)totalHp;
+    QBrush green_brush(Qt::green);
+    painter->setBrush(green_brush);
+    painter->drawRect(-HP_WEIDTH/2,-TOWER_HEIGHT/2-2*HP_HEIGHT,rate*HP_WEIDTH,HP_HEIGHT);//绘制矩形
 
 }
 
@@ -59,6 +85,10 @@ int Tower::type() const{
     return Type;
 }
 
+void Tower::mousePressEvent(QGraphicsSceneMouseEvent *event){
+    Q_UNUSED(event)
+    ifClicked=!ifClicked;
+}
 
 void Tower::setMovie(QString path){
     if(movie)

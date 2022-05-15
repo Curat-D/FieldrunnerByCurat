@@ -8,9 +8,16 @@
 #include "towerGolbal.h"
 
 Glue::Glue():Tower(GLUE_ATK,GLUE_INTERVAL,GLUE_RADIUS,GLUE_HP){
-    QString path = QString(GLUE1)+QString("1.png");
+    levelPath=GLUE1;
+    QString path = QString(levelPath)+QString("1.png");
     setMovie(path);
     music = new QSound(":/musics/glue.wav");
+}
+
+Glue::~Glue(){
+    if(music)
+        delete music;
+    return;
 }
 
 void Glue::advance(int phase){
@@ -57,7 +64,23 @@ void Glue::advance(int phase){
         count=0;
     }
 
-    QString path = QString(GLUE1)+QString::number(direction)+QString(".png");
+    QString path = QString(levelPath)+QString::number(direction)+QString(".png");
     setMovie(path);
+    update();
+}
+
+void Glue::UpGrade(){
+    if(levelPath==GLUE1){
+         levelPath = GLUE2;
+         hp=GLUE_HP*2;
+         atk=GLUE_ATK*2;
+         totalHp=hp;
+    }
+    else if(levelPath==GLUE2){
+        levelPath = GLUE3;
+        hp=GLUE_HP*3;
+        atk=GLUE_ATK*2;
+        totalHp=hp;
+    }
     update();
 }

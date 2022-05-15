@@ -7,7 +7,9 @@ class Gattling: public Tower
 {
 public:
     Gattling();
+    ~Gattling();
     void advance(int phase) override;
+    void UpGrade() override;
 private:
     QSound* music;
 };

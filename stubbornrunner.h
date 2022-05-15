@@ -7,6 +7,7 @@ class StubbornRunner : public Enemie
 {
 public:
     StubbornRunner();
+    ~StubbornRunner(){}
     void advance(int phase) override;
 };
 

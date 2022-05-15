@@ -1,4 +1,4 @@
-QT       += core gui multimedia
+QT       += core gui multimedia xml
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -19,6 +19,8 @@ SOURCES += \
     barrier.cpp \
     bullet.cpp \
     card.cpp \
+    configreader.cpp \
+    eliminate.cpp \
     enemie.cpp \
     flyer.cpp \
     gattling.cpp \
@@ -30,12 +32,15 @@ SOURCES += \
     runner.cpp \
     stubbornrunner.cpp \
     tower.cpp \
-    towerpos.cpp
+    towerpos.cpp \
+    upgrade.cpp
 
 HEADERS += \
     barrier.h \
     bullet.h \
     card.h \
+    configreader.h \
+    eliminate.h \
     enemie.h \
     enemieGlobal.h \
     flyer.h \
@@ -49,10 +54,10 @@ HEADERS += \
     stubbornrunner.h \
     tower.h \
     towerGolbal.h \
-    towerpos.h
+    towerpos.h \
+    upgrade.h
 
-FORMS += \
-    mainwindow.ui
+FORMS +=
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -60,7 +65,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    images.qrc
+    res.qrc
 
 
 
