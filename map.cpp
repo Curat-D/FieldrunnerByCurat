@@ -11,15 +11,18 @@ Map::Map(MouseHouse* HOUSE):house(HOUSE){
     ConfigReader::readConfig(pos1,len1,pos2,len2,groundPath,len3,aerialPath,len4,beginX,beginY,endX);
     loadPos(pos1,len1,pos2,len2);
     loadPath(groundPath,len3,aerialPath,len4);
+    delete pos1;
+    delete pos2;
+    delete groundPath;
+    delete aerialPath;
+    pos1=NULL;
+    pos2=NULL;
+    groundPath=NULL;
+    aerialPath=NULL;
 }
 
 Map::~Map(){
-    qDeleteAll(positionList);
-    if(house!=NULL){
-        delete house;
-        house=NULL;
-    }
-
+    //qDeleteAll(positionList);
 }
 
 QRectF Map::boundingRect() const{

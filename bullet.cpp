@@ -11,6 +11,7 @@ Bullet::Bullet(int attack, qreal speedOfX, qreal speedOfY, QString PATH, bool at
     speedY = speedOfY;
     path = PATH;
     atkObject = atkOBJECT;
+    needDelete=0;
 }
 
 Bullet::~Bullet(){}
@@ -52,7 +53,11 @@ void Bullet::advance(int phase){
                     Tower *tower = qgraphicsitem_cast<Tower *>(item);
                     if(tower!=NULL){
                         tower->BeAttacked(atk);
-                        delete this;
+                        if(tower->getHp()<=0){
+                            delete tower;
+                            tower=NULL;
+                        }
+                        needDelete=true;
                         return;
                     }
                 }
@@ -62,7 +67,11 @@ void Bullet::advance(int phase){
                     Enemie *enemie = qgraphicsitem_cast<Enemie *>(item);
                     if(enemie!=NULL){
                         enemie->BeAttacked(atk);
-                        delete this;
+                        if(enemie->getHp()<=0){
+                            delete  enemie;
+                            enemie=NULL;
+                        }
+                        needDelete=true;
                         return;
                     }
                 }
@@ -74,8 +83,12 @@ void Bullet::advance(int phase){
     }
 
     if (x() <=10 || x()>=1100 || y()<=10 || y()>=750){
-        delete this;
+        needDelete=true;
         return;
     }
 
+}
+
+bool Bullet::getNeedDelete() const{
+    return needDelete;
 }

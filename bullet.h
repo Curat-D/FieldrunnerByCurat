@@ -10,6 +10,7 @@ private:
     qreal speedY;
     QString path;
     bool atkObject;   //0:攻击防御塔，1：攻击敌人
+    bool needDelete;
 public:
     Bullet(int attack = 0, qreal speedOfX = 0, qreal speedOfY = 0, QString PATH=0, bool atkOBJECT=0);
     ~Bullet();
@@ -21,6 +22,7 @@ public:
     bool collidesWithItem(const QGraphicsItem *Object, Qt::ItemSelectionMode mode) const override;
 
     void advance(int phase) override;
+    bool getNeedDelete()const;
 };
 
 

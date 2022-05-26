@@ -13,15 +13,17 @@ void Runner::advance(int phase){
         return;
     update();
     count++;
-    if(hp<=0){
-        delete this;
-        return;
-    }
     if(count==interval){
         QList<QGraphicsItem *> items = collidingItems();
         if(!items.isEmpty()){
             Tower* tower = qgraphicsitem_cast<Tower*>(items[0]);
+            if(tower==NULL)
+                return;
             tower->BeAttacked(atkToTower);
+            if(tower->getHp()<=0){
+                delete  tower;
+                tower=NULL;
+            }
         }
         count=0;
     }

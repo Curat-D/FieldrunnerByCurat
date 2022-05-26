@@ -25,10 +25,6 @@ void Barrier::advance(int phase){
     if(!phase)
         return;
     update();
-    if(hp<=0){
-        delete this;
-        return;
-    }
     QList<QGraphicsItem *> items = collidingItems();
     if(!items.isEmpty()){
         for(auto item:items){

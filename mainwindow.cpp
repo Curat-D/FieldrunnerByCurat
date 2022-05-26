@@ -94,7 +94,10 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
-
+    if(!music)
+        delete music;
+    if(!gameOver)
+        delete gameOver;
 }
 
 void MainWindow::addEnemie1(){
@@ -120,21 +123,32 @@ void MainWindow::checkGameOver(){
     Score->setPlainText(QString("Scores: ") +QString::number(score));
 
     const QList<QGraphicsItem*> items = scene->items();
-    foreach(QGraphicsItem * item, items)
-        if (item->type() == Enemie::Type && item->x() >= map->endX){
-            score-=100;
-            Enemie* enemie = qgraphicsitem_cast<Enemie*>(item);
-            heart-=enemie->getAtk();
-            delete enemie;
-            Heart->setPlainText(QString::number(heart));
-            QPixmap H(":/images/heart.png");
-            H = H.scaled(100, 100);
-            scene->addPixmap(H)->setPos(1000,50);
-            QBrush brush(QColor(0, 0, 0, 200));
-            scene->addRect(QRectF(1000,50,100,100-heart),QPen(),brush);
-            scene->advance();
+    if(!items.isEmpty())
+        for(auto item:items)
+            if (item!=NULL){
+                if(item->x() >= map->endX&&item->type() == Enemie::Type){
+                    score-=100;
+                    Enemie* enemie = qgraphicsitem_cast<Enemie*>(item);
+                    heart-=enemie->getAtk();
+                    delete enemie;
+                    enemie=NULL;
+                    Heart->setPlainText(QString::number(heart));
+                    QPixmap H(":/images/heart.png");
+                    H = H.scaled(100, 100);
+                    scene->addPixmap(H)->setPos(1000,50);
+                    QBrush brush(QColor(0, 0, 0, 200));
+                    scene->addRect(QRectF(1000,50,100,100-heart),QPen(),brush);
+                    scene->advance();
+                }
+                else if(item->type()==Bullet::Type){
+                    Bullet* bullet = qgraphicsitem_cast<Bullet*>(item);
+                    if(bullet->getNeedDelete()){
+                        delete bullet;
+                        bullet=NULL;
+                    }
+                }
+            }
 
-        }
     if(heart<=0){
         scene->addPixmap(QPixmap(":/images/you_lose.jpg").scaled(400,400))->setPos(400, 150);
         scene->advance();
@@ -151,3 +165,4 @@ void MainWindow::checkGameOver(){
 void MainWindow::addScore(int increase){
     score+=increase;
 }
+

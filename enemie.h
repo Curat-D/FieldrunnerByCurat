@@ -21,6 +21,7 @@ public:
     enum { Type = UserType + 1 };
     int type() const override;
 
+    int getHp()const;
     void BeAttacked(int damage);
     void setMoive(QString path);
     int getAtk()const;

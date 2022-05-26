@@ -9,10 +9,6 @@ TowerPos::TowerPos(bool jdg,MouseHouse* HOUSE):hasTower(false),isMelee(jdg),hous
 }
 
 TowerPos::~TowerPos(){
-    if(house!=NULL){
-        delete house;
-        house=NULL;
-    }
 }
 
 QRectF TowerPos::boundingRect() const{

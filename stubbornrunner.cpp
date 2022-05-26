@@ -16,14 +16,12 @@ void StubbornRunner::advance(int phase){
         return;
     update();
     count++;
-    if(hp<=0){
-        delete this;
-        return;
-    }
     if(count==interval){
         QList<QGraphicsItem *> items = collidingItems();
         if(!items.isEmpty()){
             Tower* tower = qgraphicsitem_cast<Tower*>(items[0]);
+            if(tower==NULL)
+                return;
             qreal X=tower->x()-x();
             qreal Y=tower->y()-y();
             qreal dis = sqrt(X*X+Y*Y);

@@ -13,6 +13,7 @@ Gattling::Gattling():Tower(GATTLING_ATK,GATTLING_INTERVAL,GATTLING_RADIUS,GATTLI
 Gattling::~Gattling(){
     if(music)
         delete music;
+    music = NULL;
     return;
 }
 
@@ -21,17 +22,13 @@ void Gattling::advance(int phase){
         return;
     update();
     count++;
-    if(hp<=0){
-        delete this;
-        return;
-    }
     QString path = QString(levelPath)+QString::number(direction)+QString(".png");
     if(count==interval){
         QList<QGraphicsItem *> items = collidingItems();
         if(!items.isEmpty()){
             if(music->isFinished())
                 music->play();
-            Enemie* enemie;
+            Enemie* enemie=NULL;
             for(auto item:items){
                 enemie = qgraphicsitem_cast<Enemie*>(item);
                 if(enemie!=NULL)
@@ -39,7 +36,8 @@ void Gattling::advance(int phase){
             }
             if(enemie==NULL)
                 return;
-            enemie->BeAttacked(atk);
+            else
+                enemie->BeAttacked(atk);
 
             int x=enemie->x();
             int y=enemie->y();

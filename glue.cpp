@@ -17,6 +17,7 @@ Glue::Glue():Tower(GLUE_ATK,GLUE_INTERVAL,GLUE_RADIUS,GLUE_HP){
 Glue::~Glue(){
     if(music)
         delete music;
+     music = NULL;
     return;
 }
 
@@ -25,16 +26,19 @@ void Glue::advance(int phase){
         return;
     update();
     count++;
-    if(hp<=0){
-        delete this;
-        return;
-    }
     if(count==interval){
         QList<QGraphicsItem *> items = collidingItems();
         if(!items.isEmpty()){
             if(music->isFinished())
                 music->play();
-            Enemie* enemie = qgraphicsitem_cast<Enemie*>(items[0]);
+            Enemie* enemie=NULL;
+            for(auto item:items){
+                enemie = qgraphicsitem_cast<Enemie*>(item);
+                if(enemie!=NULL)
+                    break;
+            }
+            if(enemie==NULL)
+                return;
             qreal X=enemie->x()-x();
             qreal Y=enemie->y()-y();
             qreal dis = sqrt(X*X+Y*Y);

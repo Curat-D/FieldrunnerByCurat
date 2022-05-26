@@ -19,6 +19,7 @@ public:
     int type() const override;
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 
+    int getHp()const;
     void setMovie(QString path);
     void BeAttacked(int damage);
     virtual void UpGrade()=0;

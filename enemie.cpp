@@ -81,3 +81,6 @@ void Enemie::changeActualSpeed(int Speed){
         actualSpeed=Speed;
 }
 
+int Enemie::getHp() const{
+    return hp;
+}

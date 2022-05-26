@@ -20,7 +20,7 @@
 
 #define StubbornRunnerWidth 60
 #define StubbornRunnerHeight 75
-#define StubbornRunnerSpeed 10
+#define StubbornRunnerSpeed 15
 #define StubbornRunnerHp 100
 #define StubbornRunnerAtkToTower 10
 #define StubbornRunnerAtkToHeart 10

@@ -26,7 +26,8 @@ Tower::Tower(int ATK, int INTERVAL, int RADIUS, int HP){
 }
 
 Tower::~Tower(){
-    delete movie;
+    if(!movie)
+        delete movie;
     movie=NULL;
     QList<QGraphicsItem *> items = scene()->items(QPoint(x(),y()));
     for(auto item:items){
@@ -93,10 +94,15 @@ void Tower::mousePressEvent(QGraphicsSceneMouseEvent *event){
 void Tower::setMovie(QString path){
     if(movie)
         delete movie;
+    movie=NULL;
     movie = new QMovie(path);
     movie->start();
 }
 
 void Tower::BeAttacked(int damage){
     hp-=damage;
+}
+
+int Tower::getHp() const{
+    return hp;
 }

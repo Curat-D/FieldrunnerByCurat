@@ -23,5 +23,6 @@ void Eliminate::mousePressEvent(QGraphicsSceneMouseEvent *event){
     Tower* tower = qgraphicsitem_cast<Tower*>(parentItem());
     if(tower!=NULL)
         delete tower;
+    tower=NULL;
     return;
 }
