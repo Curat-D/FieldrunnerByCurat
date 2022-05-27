@@ -36,8 +36,10 @@ void Gattling::advance(int phase){
             }
             if(enemie==NULL)
                 return;
-            else
-                enemie->BeAttacked(atk);
+            else{
+                enemie->BeAttacked(atk); 
+            }
+
 
             int x=enemie->x();
             int y=enemie->y();
@@ -55,6 +57,12 @@ void Gattling::advance(int phase){
                 direction+=19;
             else
                 direction = 20 -direction;
+            if(enemie->getHp()<=0){
+             //   delete  enemie;
+             //   enemie=NULL;
+                enemie->remove();
+                scene()->removeItem(enemie);
+            }
             path = QString(levelPath)+QString("shoot/")+QString::number(direction)+QString(".png");
         }
         count=0;

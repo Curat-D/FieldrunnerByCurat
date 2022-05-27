@@ -29,6 +29,11 @@ Tower::~Tower(){
     if(!movie)
         delete movie;
     movie=NULL;
+
+    return;
+}
+
+void Tower::remove(){
     QList<QGraphicsItem *> items = scene()->items(QPoint(x(),y()));
     for(auto item:items){
         if(item->type()==TowerPos::Type){
@@ -37,7 +42,6 @@ Tower::~Tower(){
                 towerPos->removeTower();
         }
     }
-    return;
 }
 
 QRectF Tower::boundingRect() const {

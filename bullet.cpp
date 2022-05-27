@@ -54,8 +54,8 @@ void Bullet::advance(int phase){
                     if(tower!=NULL){
                         tower->BeAttacked(atk);
                         if(tower->getHp()<=0){
-                            delete tower;
-                            tower=NULL;
+                            tower->remove();
+                            scene()->removeItem(tower);
                         }
                         needDelete=true;
                         return;
@@ -68,8 +68,10 @@ void Bullet::advance(int phase){
                     if(enemie!=NULL){
                         enemie->BeAttacked(atk);
                         if(enemie->getHp()<=0){
-                            delete  enemie;
-                            enemie=NULL;
+                            //delete  enemie;
+                            //enemie=NULL;
+                            enemie->remove();
+                            scene()->removeItem(enemie);
                         }
                         needDelete=true;
                         return;

@@ -9,6 +9,9 @@ Barrier::Barrier():Tower(BARRIER_ATK,BARRIER_INTERVAL,BARRIER_RADIUS,BARRIER_HP)
 }
 
 Barrier::~Barrier(){
+}
+
+void Barrier::remove(){
     QList<QGraphicsItem *> items = collidingItems();
     if(!items.isEmpty()){
         for(auto item:items){
@@ -18,7 +21,6 @@ Barrier::~Barrier(){
             }
         }
     }
-    return;
 }
 
 void Barrier::advance(int phase){

@@ -26,6 +26,7 @@ public:
     void setMoive(QString path);
     int getAtk()const;
     void changeActualSpeed(int speed);
+    void remove();
 protected:
     int hp;
     int totalHp;  //总血量（用于计算百分比显示血条）

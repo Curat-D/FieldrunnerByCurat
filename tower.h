@@ -23,6 +23,7 @@ public:
     void setMovie(QString path);
     void BeAttacked(int damage);
     virtual void UpGrade()=0;
+    virtual void remove();
 protected:
     int atk;  //攻击力
     int interval;  //攻击间隔

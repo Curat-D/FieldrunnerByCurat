@@ -21,8 +21,10 @@ void Runner::advance(int phase){
                 return;
             tower->BeAttacked(atkToTower);
             if(tower->getHp()<=0){
-                delete  tower;
-                tower=NULL;
+                tower->remove();
+                scene()->removeItem(tower);
+                //   delete  tower;
+              //  tower=NULL;
             }
         }
         count=0;

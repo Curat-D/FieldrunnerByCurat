@@ -7,6 +7,7 @@ class Barrier : public Tower
 public:
     Barrier();
     ~Barrier();
+    void remove() override;
     void advance(int phase) override;
     void UpGrade() override{};
 };

@@ -28,6 +28,9 @@ Enemie::Enemie(int HP,int ATK1, int ATK2, int SPEED, int Radius, int INTERVAL,in
 Enemie::~Enemie(){
     if(movie)
         delete movie;
+}
+
+void Enemie::remove(){
     MouseHouse::addCoin(50);
     MainWindow::addScore(100);
 }

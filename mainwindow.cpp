@@ -127,7 +127,6 @@ void MainWindow::checkGameOver(){
         for(auto item:items)
             if (item!=NULL){
                 if(item->x() >= map->endX&&item->type() == Enemie::Type){
-                    score-=100;
                     Enemie* enemie = qgraphicsitem_cast<Enemie*>(item);
                     heart-=enemie->getAtk();
                     delete enemie;
